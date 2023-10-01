@@ -1,6 +1,17 @@
 # Projeto - Extração de Dados I
 
 <details>
+<summary><h2>Criando váriaveis de ambiente - ENV</h3></summary>
+
+Usar arquivos .env em Python é uma prática comum para armazenar informações sensíveis ou configurações que não devem ser codificadas diretamente em seu código fonte. Você pode usar a biblioteca python-dotenv para carregar variáveis de ambiente de um arquivo .env.
+
+```bash
+API_KEY= SUA_CHAVE_DE_API_AQUI
+
+```
+</details>
+
+<details>
 <summary><h2>Execução com Ambiente Virtual</h2></summary>
 
 <details>
@@ -85,3 +96,5 @@ Para desativar seu ambiente virtual, basta executar o seguinte comando:
 
 ```bash
 deactivate
+
+

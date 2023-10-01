@@ -1,11 +1,15 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class GenomicAPIClient:
 
     def __init__(self, url):
         self.url = url
-        self.api_key = "aa603652ad8d4f0d8da9a9d3b52a0efb"
+        self.api_key = os.getenv("API_KEY")
 
     def __get_headers(self):
         return {

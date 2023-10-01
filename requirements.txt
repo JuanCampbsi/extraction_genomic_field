@@ -4,3 +4,4 @@ requests
 pyarrow 
 fastparquet
 Flask
+python-dotenv
