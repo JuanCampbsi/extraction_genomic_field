@@ -7,7 +7,7 @@ load_dotenv()
 
 class GenomicAPIClient:
 
-    def __init__(self, url):
+    def __init__(self, url: str):
         self.url = url
         self.api_key = os.getenv("API_KEY")
 
@@ -19,7 +19,8 @@ class GenomicAPIClient:
 
     def __params(self):
         return {
-            'q': 'genômica OR medicina personalizada'
+            'q': 'DNA OR GENÉTICAS OR SEQUENCIAMENTO OR DOENÇAS OR TERAPIAS',
+            'language': 'pt'
         }
 
     def news_searchs(self):
