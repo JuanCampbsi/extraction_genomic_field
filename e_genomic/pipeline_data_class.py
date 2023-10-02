@@ -45,31 +45,34 @@ class Pipeline:
         df_news['year'] = df_news['publishedAt'].dt.year
         df_news['month'] = df_news['publishedAt'].dt.month
         df_news['day'] = df_news['publishedAt'].dt.day
-        news_data = df_news.groupby(['year', 'month', 'day']).size()
-        # print("news_data", news_data)
+        count_news_date = df_news.groupby(
+            ['year', 'month', 'day']).size().reset_index(name='count_news')
 
         # 4.2 - Quantidade de notícias por fonte e autor
         df_news['source_name'] = df_news['source'].apply(
             lambda x: x['name'] if isinstance(x, dict) and 'name' in x else 'NaN')
-        news_by_source_author = df_news.groupby(
-            ['source_name', 'author']).size()
-        print("news_by_source_author", df_news['source'])
+        count_by_source_author = df_news.groupby(
+            ['source_name', 'author']).size().reset_index(name='count_source')
 
-        # # 4.3 - Quantidade de aparições de 3 palavras chaves por ano, mês e dia de publicação
-        # df_news['keywords'] = df_news['title'].apply(
-        #     lambda x: any(word in x.upper() for word in self.__key_woods))
-        # news_words_keys = df_news[df_news['keywords']].groupby(
-        #     ['year', 'month', 'day']).size()
+        # 4.3 - Quantidade de aparições de 3 palavras chaves por ano, mês e dia de publicação
+        df_news['keywords'] = df_news['title'].apply(
+            lambda x: any(word in x.upper() for word in self.__key_woods))
+        counts_words_keys = df_news[df_news['keywords']].groupby(
+            ['year', 'month', 'day']).size().reset_index(name='count_keywords')
 
-        # print("news_words_keys", news_words_keys)
+        df_result_transformed = {
+            'count_news_date': count_news_date,
+            'count_by_source_author': count_by_source_author,
+            'count_words_keys': counts_words_keys
+        }
 
-        # df_result_transformed = df_news
-
-        # self.__load(
-        #     df=df_result_transformed,
-        #     format=self.__enum[target_format].value,
-        #     path=target_path
-        # )
+        for name, dataframe in df_result_transformed.items():
+            display(dataframe)
+            self.__load(
+                df=dataframe,
+                format=self.__enum[target_format].value,
+                path=f"{self.__raw_path}/{name}.parquet.gz"
+            )
 
     def run(self):
         print("Pipeline.__run")
@@ -77,7 +80,7 @@ class Pipeline:
         news_filtereds = self.filtrar_news(pd.DataFrame(
             client.news_searchs()['articles']))
 
-        # Apply Data Transformations
+        # Aplicando transformações de dados
         self.__transform(
             df_news=news_filtereds,
             target_path=f"{self.__raw_path}/news_transformation.parquet.gz",
