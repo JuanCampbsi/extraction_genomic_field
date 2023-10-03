@@ -18,19 +18,6 @@ class Pipeline:
         self.__key_woods = ['DNA', 'GENÉTICAS', 'TERAPIAS',
                             'SEQUENCIAMENTO', 'DOENÇAS']
 
-    def filtrar_news(self, news: pd.DataFrame):
-        print("Pipeline.__filtreds")
-
-        regex = re.compile('|'.join(self.__key_woods), re.IGNORECASE)
-
-        news = news.assign(title=news['title'].fillna(
-            ''), description=news['description'].fillna(''), content=news['content'].fillna(''))
-
-        news_filtreds = news[news.apply(lambda x: bool(regex.search(
-            x['title'])) or bool(regex.search(x['description'])) or bool(regex.search(x['content'])), axis=1)]
-
-        return news_filtreds
-
     def __load(self, df: pd.DataFrame, format: int, path: str):
         if format == self.__enum.json.value:
             df.to_json(path, orient="records", mode="w")
@@ -39,6 +26,17 @@ class Pipeline:
 
     def __transform(self, df_news: pd.DataFrame, target_path: str, target_format: str):
         print("Pipeline.__transform")
+
+        # df = pd.read_parquet(f"{self.__raw_path}/")
+
+        # 2. Definindo Critérios de Relevância
+        regex = re.compile('|'.join(self.__key_woods), re.IGNORECASE)
+
+        df_news = df_news.assign(title=df_news['title'].fillna(
+            ''), description=df_news['description'].fillna(''), content=df_news['content'].fillna(''))
+
+        df_news = df_news[df_news.apply(lambda x: bool(regex.search(
+            x['title'])) or bool(regex.search(x['description'])) or bool(regex.search(x['content'])), axis=1)]
 
         # 4.1 - Quantidade de notícias por ano, mês e dia de publicação
         df_news['publishedAt'] = pd.to_datetime(df_news['publishedAt'])
@@ -78,8 +76,8 @@ class Pipeline:
         try:
             print("Pipeline.__run")
             client = GenomicAPIClient()
-            news_filtereds = self.filtrar_news(pd.DataFrame(
-                client.news_searchs()['articles']))
+            news_filtereds = pd.DataFrame(
+                client.news_searchs()['articles'])
 
             # Aplicando transformações de dados
             self.__transform(
