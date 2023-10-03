@@ -1,8 +1,7 @@
-from e_genomic.genomic_api_client_class import GenomicAPIClient
+from e_genomic.api_client_class import GenomicAPIClient
 import pandas as pd
 import re
 from enum import Enum
-from io import StringIO
 
 
 class TypeFormat(Enum):
@@ -18,16 +17,22 @@ class Pipeline:
         self.__key_woods = ['DNA', 'GENÉTICAS', 'TERAPIAS',
                             'SEQUENCIAMENTO', 'DOENÇAS']
 
+    @property
+    def raw_path(self) -> str:
+        return self.__raw_path
+
+    @property
+    def key_woods(self) -> list[str]:
+        return self.__key_woods
+
     def __load(self, df: pd.DataFrame, format: int, path: str):
         if format == self.__enum.json.value:
             df.to_json(path, orient="records", mode="w")
         elif format == self.__enum.parquet.value:
             df.to_parquet(path, index=False, compression="gzip")
 
-    def __transform(self, df_news: pd.DataFrame, target_path: str, target_format: str):
+    def __transform(self, df_news: pd.DataFrame, target_format: str):
         print("Pipeline.__transform")
-
-        # df = pd.read_parquet(f"{self.__raw_path}/")
 
         # 2. Definindo Critérios de Relevância
         regex = re.compile('|'.join(self.__key_woods), re.IGNORECASE)
@@ -82,11 +87,10 @@ class Pipeline:
             # Aplicando transformações de dados
             self.__transform(
                 df_news=news_filtereds,
-                target_path=f"{self.__raw_path}/news_transformation.parquet.gz",
                 target_format="parquet"
             )
 
-            return {'status': 'success', 'message': 'Dados transformados!'}
+            return {'status': 'success', 'message': 'Dados transformados e carregados!'}
 
         except Exception as e:
-            return {'status': 'error', 'message': 'Falha ao transformar os dados.'}
+            return {'status': 'error', 'message': 'Falha na operação.'}

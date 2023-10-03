@@ -5,3 +5,4 @@ pyarrow
 fastparquet
 Flask
 python-dotenv
+APScheduler
