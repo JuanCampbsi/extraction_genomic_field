@@ -75,14 +75,20 @@ class Pipeline:
             )
 
     def run(self):
-        print("Pipeline.__run")
-        client = GenomicAPIClient(url="https://newsapi.org/v2/everything")
-        news_filtereds = self.filtrar_news(pd.DataFrame(
-            client.news_searchs()['articles']))
+        try:
+            print("Pipeline.__run")
+            client = GenomicAPIClient()
+            news_filtereds = self.filtrar_news(pd.DataFrame(
+                client.news_searchs()['articles']))
 
-        # Aplicando transformações de dados
-        self.__transform(
-            df_news=news_filtereds,
-            target_path=f"{self.__raw_path}/news_transformation.parquet.gz",
-            target_format="parquet"
-        )
+            # Aplicando transformações de dados
+            self.__transform(
+                df_news=news_filtereds,
+                target_path=f"{self.__raw_path}/news_transformation.parquet.gz",
+                target_format="parquet"
+            )
+
+            return {'status': 'success', 'message': 'Dados transformados!'}
+
+        except Exception as e:
+            return {'status': 'error', 'message': 'Falha ao transformar os dados.'}
