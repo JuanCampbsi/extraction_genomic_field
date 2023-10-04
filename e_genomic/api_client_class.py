@@ -20,7 +20,8 @@ class GenomicAPIClient:
     def __params(self):
         return {
             'q': 'DNA OR GENÉTICAS OR SEQUENCIAMENTO OR DOENÇAS OR TERAPIAS',
-            'language': 'pt'
+            'language': 'pt',
+            'sortBy': 'relevancy'
         }
 
     def news_searchs(self):
