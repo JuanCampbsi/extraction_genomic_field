@@ -33,6 +33,7 @@ class BatchLoader(Pipeline):
             news_filtereds = pd.DataFrame(
                 client.news_searchs()['articles'])
 
+            # 2. Definindo Critérios de Relevância
             regex = re.compile('|'.join(super().key_woods), re.IGNORECASE)
 
             news_filtereds['title'] = news_filtereds['title'].replace(

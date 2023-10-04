@@ -34,15 +34,6 @@ class Pipeline:
     def __transform(self, df_news: pd.DataFrame, target_format: str):
         print("Pipeline.__transform")
 
-        # 2. Definindo Critérios de Relevância
-        regex = re.compile('|'.join(self.__key_woods), re.IGNORECASE)
-
-        df_news = df_news.assign(title=df_news['title'].fillna(
-            ''), description=df_news['description'].fillna(''), content=df_news['content'].fillna(''))
-
-        df_news = df_news[df_news.apply(lambda x: bool(regex.search(
-            x['title'])) or bool(regex.search(x['description'])) or bool(regex.search(x['content'])), axis=1)]
-
         # 4.1 - Quantidade de notícias por ano, mês e dia de publicação
         df_news['publishedAt'] = pd.to_datetime(df_news['publishedAt'])
         df_news['year'] = df_news['publishedAt'].dt.year
@@ -80,9 +71,12 @@ class Pipeline:
     def run(self):
         try:
             print("Pipeline.__run")
-            client = GenomicAPIClient()
-            news_filtereds = pd.DataFrame(
-                client.news_searchs()['articles'])
+
+            news_filtereds = pd.read_csv(
+                f"{self.__raw_path}/load_batch_news_relevancy.csv")
+            # client = GenomicAPIClient()
+            # news_filtereds = pd.DataFrame(
+            #     client.news_searchs()['articles'])
 
             # Aplicando transformações de dados
             self.__transform(
