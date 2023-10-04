@@ -74,9 +74,6 @@ class Pipeline:
 
             news_filtereds = pd.read_csv(
                 f"{self.__raw_path}/load_batch_news_relevancy.csv")
-            # client = GenomicAPIClient()
-            # news_filtereds = pd.DataFrame(
-            #     client.news_searchs()['articles'])
 
             # Aplicando transformações de dados
             self.__transform(
