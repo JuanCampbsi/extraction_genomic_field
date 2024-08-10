@@ -1,60 +1,60 @@
-# Projeto - Extração de Dados I
+# Project - Data Extraction I
 
-<summary><h2>Contexto</h3></summary>
+<summary><h2>Context</h3></summary>
 
-Contexto:
-O grupo trabalha no time de engenharia de dados na HealthGen, uma empresa especializada em genômica e pesquisa de medicina personalizada. A genômica é o estudo do conjunto completo de genes de um organismo, desempenha um papel fundamental na medicina personalizada e na pesquisa biomédica. Permite a análise do DNA para identificar variantes genéticas e mutações associadas a doenças e facilita a personalização de tratamentos com base nas características genéticas individuais dos pacientes.
+Context:
+The group works in the data engineering team at HealthGen, a company specializing in genomics and personalized medicine research. Genomics is the study of an organism's complete set of genes and plays a fundamental role in personalized medicine and biomedical research. It allows DNA analysis to identify genetic variants and mutations associated with diseases and facilitates the personalization of treatments based on the individual genetic characteristics of patients.
 
-A empresa precisa se manter atualizada sobre os avanços mais recentes na genômica, identificar oportunidades para pesquisa e desenvolvimento de tratamentos personalizados e acompanhar as tendências em genômica que podem influenciar estratégias de pesquisa e desenvolvimento. Pensando nisso, o time de dados apresentou uma proposta de desenvolvimento de um sistema que coleta, analisa e apresenta as últimas notícias relacionadas à genômica e à medicina personalizada, e também estuda o avanço do campo nos últimos anos.
+The company needs to stay up to date on the latest advances in genomics, identify opportunities for research and development of personalized treatments, and monitor trends in genomics that may influence research and development strategies. With this in mind, the data team presented a proposal to develop a system that collects, analyzes and presents the latest news related to genomics and personalized medicine, and also studies the advancement of the field in recent years.
 
 
-<summary><h2>Criando váriaveis de ambiente - ENV</h3></summary>
+<summary><h2>Creating Environment Variables - ENV</h3></summary>
 
-Usar arquivos .env em Python é uma prática comum para armazenar informações sensíveis ou configurações que não devem ser codificadas diretamente em seu código fonte. Nesse projeto estamos usando biblioteca python-dotenv para carregar variáveis de ambiente de um arquivo .env.
+Using .env files in Python is a common practice to store sensitive information or settings that should not be hard-coded into your source code. In this project we are using the python-dotenv library to load environment variables from a .env file.
 
 ```bash
 API_KEY= SUA_CHAVE_DE_API_AQUI
 
 ```
 
-<summary><h2>Execução com Ambiente Virtual</h2></summary>
+<summary><h2>Execution with Virtual Environment</h2></summary>
 
 <details>
 <summary><h3>Linux</h3></summary>
 
-## Instale o virtualenv
+## Install virtualenv
 
-Para instalar o `virtualenv`, abra o terminal e execute o seguinte comando:
+To install `virtualenv`, open the terminal and run the following command:
 
 ```bash
 pip install virtualenv
 ```
 
-## Criação e Ativação de um Ambiente Virtual
+## Creating and Activating a Virtual Environment
 
-Abra o terminal e navegue até o diretório raiz do projeto, lá crie o ambiente com o seguinte comando:
+Open the terminal and navigate to the root directory of the project, there create the environment with the following command:
 
 ```bash
 virtualenv venv
 ```
 
-Agora ative seu ambiente virtual:
+Now activate your virtual environment:
 
 ```bash
 source venv/bin/activate
 ```
 
-## Instlação das ferraments necessárias:
+## Installing the necessary tools:
 
-Agora você pode, ainda na pasta raiz, instalar as ferramentas necessárias para rodar a aplicação usando o arquivo requirements.txt:
+Now you can, still in the root folder, install the necessary tools to run the application using the requirements.txt file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Desativação do ambiente virtual:
+## Deactivating the virtual environment:
 
-Para desativar seu ambiente virtual, basta executar o seguinte comando:
+To deactivate your virtual environment, simply run the following command:
 
 ```bash
 deactivate
@@ -65,40 +65,39 @@ deactivate
 <details>
 <summary><h3>Windows</h3></summary>
 
-## Instale o virtualenv
+## Install virtualenv
 
-Para instalar o `virtualenv`, abra o Prompt de Comando ou PowerShell como administrador e execute o seguinte comando:
+To install `virtualenv`, open the Command Prompt or PowerShell as administrator and run the following command:
 
 ```bash
 pip install virtualenv
 ```
 
-## Criação e Ativação de um Ambiente Virtual
+## Creating and Activating a Virtual Environment
 
-Abra o Prompt de Comando ou PowerShell e navegue até o diretório raiz do projeto, lá crie o ambiente com o seguinte comando:
+Open the Command Prompt or PowerShell and navigate to the root directory of the project, there create the environment with the following command:
 
 ```bash
 virtualenv venv
 ```
 
-Agora ative seu ambiente virtual:
+Now activate your virtual environment:
 
 ```bash
 venv/bin/activate
 ```
 
-## Instlação das ferraments necessárias:
+## Installing the necessary tools:
 
-Agora você pode, ainda na pasta raiz, instalar as ferramentas necessárias para rodar a aplicação usando o arquivo requirements.txt:
+Now you can, still in the root folder, install the necessary tools to run the application using the file requirements.txt:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Desativação do ambiente virtual:
+## Deactivating the virtual environment:
 
-Para desativar seu ambiente virtual, basta executar o seguinte comando:
-
+To deactivate your virtual environment, simply run the following command:
 ```bash
 deactivate
 
